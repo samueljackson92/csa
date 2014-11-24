@@ -3,6 +3,11 @@ require 'test_helper'
 class BroadcastsControllerTest < ActionController::TestCase
   setup do
     @broadcast = broadcasts(:one)
+    create_dummy_session :one
+  end
+
+  teardown do
+      destroy_dummy_session
   end
 
   test "should get index" do
@@ -18,25 +23,15 @@ class BroadcastsControllerTest < ActionController::TestCase
 
   test "should create broadcast" do
     assert_difference('Broadcast.count') do
-      post :create, broadcast: { content: @broadcast.content, user_id: @broadcast.user_id }
+      post :create, broadcast: { content: @broadcast.content, user_id: @broadcast.user_id}, feeds: ["RSS"]
     end
 
-    assert_redirected_to broadcast_path(assigns(:broadcast))
+    assert_redirected_to "#{broadcasts_path}?page=1"
   end
 
   test "should show broadcast" do
     get :show, id: @broadcast
     assert_response :success
-  end
-
-  test "should get edit" do
-    get :edit, id: @broadcast
-    assert_response :success
-  end
-
-  test "should update broadcast" do
-    patch :update, id: @broadcast, broadcast: { content: @broadcast.content, user_id: @broadcast.user_id }
-    assert_redirected_to broadcast_path(assigns(:broadcast))
   end
 
   test "should destroy broadcast" do

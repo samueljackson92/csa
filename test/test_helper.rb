@@ -12,4 +12,12 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def create_dummy_session(id)
+      @user_detail = user_details(id)
+      session[:user_id] = @user_detail.id
+  end
+
+  def destroy_dummy_session()
+      session[:user_id] = nil
+  end
 end
