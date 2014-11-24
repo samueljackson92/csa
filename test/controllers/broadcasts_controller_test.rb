@@ -3,6 +3,11 @@ require 'test_helper'
 class BroadcastsControllerTest < ActionController::TestCase
   setup do
     @broadcast = broadcasts(:one)
+    create_dummy_session :one
+  end
+
+  teardown do
+      destroy_dummy_session
   end
 
   test "should get index" do
