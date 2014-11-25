@@ -35,4 +35,10 @@ class ActiveSupport::TestCase
   def destroy_dummy_session()
       session[:user_id] = nil
   end
+
+  def create_timestampped_broadcast(msg)
+    time = Time.now.getutc
+    user = users(:one)
+    Broadcast.new({user: user, content: msg + time.to_s})
+  end
 end
