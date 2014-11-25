@@ -2,6 +2,10 @@ ENV["RAILS_ENV"] ||= "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
+# Include SimpleConv for converage
+require 'simplecov'
+SimpleCov.start
+
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
 
