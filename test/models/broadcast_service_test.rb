@@ -8,6 +8,12 @@ class BroadcastTest < ActiveSupport::TestCase
     @broadcast_message = "#CraigBakes all the cucumbers at "
   end
 
+  teardown do
+    # sleep for a short amount of time after each test
+    # this prevents making a request too quickly, leading to accidental failures.
+    sleep 0.1
+  end
+
   test "send broadcast to all feeds" do
     feeds = {alumni_email: "slj11@aber.ac.uk", "twitter" => true, "atom" => true, "Rss" => true, "facebook"=> true, "email" => true}
     result = BroadcastService.broadcast(create_timestampped_broadcast(@broadcast_message), feeds)
@@ -57,6 +63,5 @@ class BroadcastTest < ActiveSupport::TestCase
     assert_equal "twitter", result[0][:feed], "The failed broadcast feed should be twitter"
     assert_equal "403", result[0][:code], "The failed broadcast code does not match"
   end
-
 
 end
