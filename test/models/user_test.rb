@@ -41,6 +41,40 @@ class UserTest < ActiveSupport::TestCase
                     surname: "Loftus",
                     grad_year: 1985,
                     email: users(:one).email)
-    assert !user.valid?
+    assert !user.valid?, 'User\'s email should be valid.'
+  end
+
+  test "should return one user from search" do
+    result = User.where(User.search_conditions("lof", User.search_columns))
+
+    assert_equal 1, result.length, "Size of returned query should be one"
+    assert_equal 'Loftus', result[0].surname, "Surname of record should match expected"
+  end
+
+  test "should return no users from search" do
+    result = User.where(User.search_conditions("UnknownUser", User.search_columns))
+
+    assert_equal result.length, 0, "Size of returned query should be one"
+  end
+
+  test "should return multiple users from search" do
+    result = User.where(User.search_conditions("Chris", ["firstname"]))
+
+    assert_equal 2, result.length, "Size of returned query should be one"
+
+    user1 = result[0]
+    user2 = result[1]
+
+    assert_equal 'Ashton', user1.surname, "Surname of first user should match expected."
+    assert_equal 'Loftus', user2.surname, "Surname of second user should match expected."
+  end
+
+  test "should set searchable columns for all users" do
+    User.searchable_by("firstname", "surname")
+    assert User.search_columns == ["firstname", "surname"]
+  end
+
+  test "should return number of users per page" do
+      assert_equal User.per_page, 6, "Number of users per page should match"
   end
 end

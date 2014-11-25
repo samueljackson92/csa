@@ -7,3 +7,27 @@ one:
   grad_year: 1985
   jobs: false
   email: cwl@aber.ac.uk
+
+two:
+  surname: Jackson
+  firstname: Samuel
+  phone: 622422
+  grad_year: 1985
+  jobs: false
+  email: slj11@aber.ac.uk
+
+three:
+  surname: Ashton
+  firstname: Chris
+  phone: 622422
+  grad_year: 1985
+  jobs: false
+  email: cba1@aber.ac.uk
+
+four:
+  surname: Heptinstall
+  firstname: Craig
+  phone: 622422
+  grad_year: 1985
+  jobs: false
+  email: crh13@aber.ac.uk
