@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  content: This is my broadcast text
+  content: Wibble, wibble, wibble, wibble, wibble yea!
   user_id: 980190962
 
 two:

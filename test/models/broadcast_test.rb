@@ -11,14 +11,14 @@ class BroadcastTest < ActiveSupport::TestCase
   end
 
   test "should convert a broadcast to a string" do
-    assert_equal "id: 980190962 content: This is my broadcast text user: 980190962", @broadcast.to_s(),
+    assert_equal "id: 980190962 content: Wibble, wibble, wibble, wibble, wibble yea! user: 980190962", @broadcast.to_s(),
                  "Broadcast text should be equal to the expected string."
   end
 
   test "should convert a broadcast without a user to a string" do
     @broadcast.user = nil
 
-    assert_equal "id: 980190962 content: This is my broadcast text", @broadcast.to_s(),
+    assert_equal "id: 980190962 content: Wibble, wibble, wibble, wibble, wibble yea!", @broadcast.to_s(),
                  "Broadcast text should be equal to the expected string."
   end
 

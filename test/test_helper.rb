@@ -41,4 +41,8 @@ class ActiveSupport::TestCase
     user = users(:one)
     Broadcast.new({user: user, content: msg + time.to_s})
   end
+
+  def create_large_tweet()
+    "Bacon ipsum dolor amet porchetta bacon short loin pork loin kielbasa shoulder drumstick. Short ribs filet mignon ham ball tip strip steak, ribeye"
+  end
 end

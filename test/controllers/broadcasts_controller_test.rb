@@ -23,15 +23,45 @@ class BroadcastsControllerTest < ActionController::TestCase
 
   test "should create broadcast" do
     assert_difference('Broadcast.count') do
-      post :create, broadcast: { content: @broadcast.content, user_id: @broadcast.user_id}, feeds: ["RSS"]
+      post :create, broadcast: { content: create_timestampped_broadcast(@broadcast.content).content, user_id: @broadcast.user_id}, feeds: ["RSS"]
     end
 
-    assert_redirected_to "#{broadcasts_path}?page=1"
+    assert_redirected_to broadcasts_url(page: 1)
+  end
+
+  test "should create broadcast with json response" do
+    assert_difference('Broadcast.count') do
+      post :create, format: 'json', broadcast: { content: create_timestampped_broadcast(@broadcast.content).content, user_id: @broadcast.user_id}, feeds: ["RSS"]
+    end
+
+    assert_response :created
+  end
+
+  test "should fail to create broadcast" do
+    #send a large tweet to the server, with will cause and error to occur.
+    post :create, broadcast: { content: create_large_tweet, user_id: @broadcast.user_id}, feeds: ["twitter"]
+    assert_template :new
+  end
+
+  test "should fail to create broadcast with json" do
+    #send a large tweet to the server, with will cause and error to occur.
+    post :create, format: 'json', broadcast: { content: create_large_tweet, user_id: @broadcast.user_id}, feeds: ["twitter"]
+    assert_response :created
   end
 
   test "should show broadcast" do
     get :show, id: @broadcast
     assert_response :success
+  end
+
+  test "should fail to show broadcast" do
+    get :show, id: -1
+    assert_redirected_to broadcasts_path
+  end
+
+  test "should fail to show broadcast with json response" do
+    get :show, id: -1, format: 'json'
+    assert_response :no_content
   end
 
   test "should destroy broadcast" do
@@ -41,4 +71,5 @@ class BroadcastsControllerTest < ActionController::TestCase
 
     assert_redirected_to broadcasts_path
   end
+
 end
