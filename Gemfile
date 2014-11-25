@@ -8,6 +8,8 @@ gem 'simple-navigation'
 
 gem 'will_paginate', '~> 3.0'
 
+gem 'simplecov', :require => false, :group => :test
+
 # Required by Windows and some Linux platforms when running with Rails 4.1.5!
 gem 'tzinfo-data'
 
@@ -57,3 +59,4 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
