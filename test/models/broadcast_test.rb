@@ -2,6 +2,9 @@ require 'test_helper'
 
 class BroadcastTest < ActiveSupport::TestCase
 
+  fixtures :users
+  fixtures :broadcasts
+
   setup do
     @broadcast = broadcasts(:one)
     @broadcast.user = users(:one)
