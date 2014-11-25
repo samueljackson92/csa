@@ -11,7 +11,7 @@ class BroadcastTest < ActiveSupport::TestCase
   teardown do
     # sleep for a short amount of time after each test
     # this prevents making a request too quickly, leading to accidental failures.
-    sleep 0.3
+    sleep 0.5
   end
 
   test "send broadcast to all feeds" do
