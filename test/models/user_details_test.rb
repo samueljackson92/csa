@@ -13,6 +13,13 @@ class UserDetailsTest < ActiveSupport::TestCase
     assert_equal "mypassword", @user_detail.password
   end
 
+  test "should generate encrypted password on save" do
+    @user_detail.password = "mypassword"
+    assert_equal "mypassword", @user_detail.password
+    @user_detail.save
+    assert_equal 64, @user_detail.crypted_password.length
+  end
+
   test "should not set the password when password is blank" do
     @user_detail.password = ""
     assert_not_equal "mypassword", @user_detail.password
