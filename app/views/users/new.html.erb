@@ -1,7 +1,5 @@
 <h1><%= I18n.t('users.sign-up') %></h1>
 
-<% @user.user_detail.password = @user.user_detail.password_confirmation = nil %>
-
 <%= form_for(@user, html: {multipart: true}) do |user_form| %>
     <% if @user.errors.any? %>
         <div id="error_explanation">
@@ -81,5 +79,3 @@
         <%= link_to I18n.t('back'), home_path %>
     <% end %>
 <% end %>
-
-

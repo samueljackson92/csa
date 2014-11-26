@@ -167,7 +167,7 @@ class UsersController < ApplicationController
         redirect_back_or_default(home_url)
       }
       format.json {
-        render json: "{#{message}}",
+        render json: "{\"message\": \"#{message}\"}",
                status: :unprocessable_entity
       }
     end
