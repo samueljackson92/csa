@@ -28,11 +28,23 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
   def create_dummy_session(id)
-      @user_detail = user_details(id)
-      session[:user_id] = @user_detail.id
+      user = users(id)
+      user_detail = user_details(id)
+      session[:user_id] = user_detail.id
+      user
   end
 
   def destroy_dummy_session()
       session[:user_id] = nil
+  end
+
+  def create_timestampped_broadcast(msg)
+    time = Time.now.getutc
+    user = users(:one)
+    Broadcast.new({user: user, content: msg + time.to_s})
+  end
+
+  def create_large_tweet()
+    "Bacon ipsum dolor amet porchetta bacon short loin pork loin kielbasa shoulder drumstick. Short ribs filet mignon ham ball tip strip steak, ribeye"
   end
 end

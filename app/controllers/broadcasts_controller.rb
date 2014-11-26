@@ -65,15 +65,13 @@ class BroadcastsController < ApplicationController
           format.json { render json: @broadcast, status: :created, location: @broadcast }
         else
           format.html { render :new }
-          format.xml {
-            # Either say it partly worked but send back the errors or else send
-            # back complete failure indicator (couldn't even save)
-            if results
-              render json: @broadcast.errors, status: :created, location: @broadcast
-            else
-              render json: @broadcast.errors, status: :unprocessable_entity
-            end
-          }
+          # Either say it partly worked but send back the errors or else send
+          # back complete failure indicator (couldn't even save)
+          if results
+            format.json { render json: @broadcast.errors, status: :created, location: @broadcast }
+          else
+            format.json { render json: @broadcast.errors, status: :unprocessable_entity }
+          end
         end
       end
     end
@@ -106,7 +104,7 @@ class BroadcastsController < ApplicationController
 
   def squelch_record_not_found(exception)
     respond_to do |format|
-      format.html { redirect_to(broadcasts_url(page: current_page)) }
+      format.html { redirect_to(broadcasts_url(page: @current_page)) }
       format.json { head :no_content }
     end
   end

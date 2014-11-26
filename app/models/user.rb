@@ -41,13 +41,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def search(query, fields=nil, options={})
-    with_scope find: {
-        conditions: search_conditions(query, fields)} do
-      find :all, options
-    end
-  end
-
   def self.search_conditions(query, fields=nil)
     return nil if query.blank?
     fields ||= @@search_columns

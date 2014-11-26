@@ -37,7 +37,7 @@ class BroadcastService
     add_feed broadcast, 'email'
     return []
   rescue => e
-    return [feed: email_list, code: 500, message: e.message]
+    return [feed: email_list, code: "500", message: e.message]
   end
 
   def self.via_twitter(broadcast)
@@ -56,7 +56,7 @@ class BroadcastService
           result = [feed: 'twitter', code: response.code, message: response.message]
       end
     rescue => e
-      result = [feed: 'twitter', code: 500, message: e.message]
+      result = [feed: 'twitter', code: "500", message: e.message]
     end
     result
   end

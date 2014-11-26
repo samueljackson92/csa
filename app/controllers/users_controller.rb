@@ -31,6 +31,7 @@ class UsersController < ApplicationController
       # Deal with incoming Ajax request for JSON data for autocomplete search field
       format.json {
         @users = User.where(User.search_conditions(params[:q], search_fields(User))).joins(:user_detail).order('surname, firstname')
+        render json: @users
       }
     end
   end
@@ -166,7 +167,7 @@ class UsersController < ApplicationController
         redirect_back_or_default(home_url)
       }
       format.json {
-        render json: "{#{message}}",
+        render json: "{\"message\": \"#{message}\"}",
                status: :unprocessable_entity
       }
     end
@@ -179,7 +180,7 @@ class UsersController < ApplicationController
                     notice: I18n.t('users.account-no-exists'))
       }
       format.json {
-        render json: "{#{I18n.t('users.account-no-exists')}}",
+        render json: "{\"message\": \"#{I18n.t('users.account-no-exists')}\"}",
                status: :unprocessable_entity
       }
     end
