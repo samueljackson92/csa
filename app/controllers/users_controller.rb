@@ -36,6 +36,15 @@ class UsersController < ApplicationController
     end
   end
 
+  #GET /users/verify.json
+  def verify
+    respond_to do |format|
+      format.json do
+        render json: "{ \"id\" :#{self.current_user.user_id} }"
+      end
+    end
+  end
+
   # GET /users
   # GET /users.json
   def index
