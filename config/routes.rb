@@ -5,6 +5,16 @@ Csa::Application.routes.draw do
     get 'verify', on: :collection
   end
 
+  #aliases for various routes. These are helpful for the RESTful API
+  namespace :users do
+    scope :format => true, :constraints => { :format => 'json' } do
+      get 'show/:id', to: :show, as: :show
+      delete 'destory/:id', to: :destroy, as: :destroy
+      put 'update/:id', to: :update, as: :update
+    end
+  end
+
+
   resources :broadcasts, except: [:edit, :update]
 
   # A singleton resource and so no paths requiring ids are generated
