@@ -2,6 +2,7 @@ Csa::Application.routes.draw do
 
   resources :users do
     get 'search', on: :collection
+    get 'verify', on: :collection
   end
 
   resources :broadcasts, except: [:edit, :update]

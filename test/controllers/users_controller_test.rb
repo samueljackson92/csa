@@ -238,6 +238,27 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   ###############################################
+  # JSON API access tests
+  ###############################################
+
+  test "should verify user can login" do
+    destroy_dummy_session
+    @request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("admin:taliesin")
+    get :verify, format: 'json'
+
+    assert_response :success
+    json_response = JSON.parse(@response.body)
+    assert_equal 980190962, json_response["id"], "User id should match expected"
+  end
+
+  test "should unauthorized user can't verify login" do
+    destroy_dummy_session
+    @request.env["HTTP_AUTHORIZATION"] = "Basic " + Base64::encode64("admin:not_a_password")
+    get :verify, format: 'json'
+    assert_response :unauthorized
+  end
+
+  ###############################################
   # Authentication tests
   ###############################################
 
