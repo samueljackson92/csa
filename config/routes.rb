@@ -14,17 +14,19 @@ Csa::Application.routes.draw do
     end
   end
 
-
   resources :broadcasts, except: [:edit, :update]
 
   # A singleton resource and so no paths requiring ids are generated
   # Also, don't want to support editing of the session
   resource :session, only: [:new, :create, :destroy]
 
-  get 'home', to: 'home#index', as: :home
+  # Add support for the HTCPCP
+  ActionDispatch::Request::HTTP_METHOD_LOOKUP["BREW"] = :brew
+  match 'coffee', to: 'coffee#index', as: :coffee, via: [:get, :brew]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
+  get 'home', to: 'home#index', as: :home
 
   # You can have the root of your site routed with "root"
   root 'home#index'
