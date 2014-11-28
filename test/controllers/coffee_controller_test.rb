@@ -1,10 +1,12 @@
 require 'test_helper'
 
-class HomeControllerTest < ActionController::TestCase
-    test "test_serves_tea" do
+class CoffeeControllerTest < ActionController::TestCase
+
+  test "test_serves_tea" do
     @request.headers["x-api-client-type"] = "application/coffee-pot-command"
-    get :index
+    get :show
     assert_equal 418, @response.status
     assert_equal "I'm a teapot", @response.body
   end
+
 end
