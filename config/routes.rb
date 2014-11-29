@@ -14,6 +14,13 @@ Csa::Application.routes.draw do
     end
   end
 
+  namespace :broadcasts do
+    scope :format => true, :constraints => { :format => 'json' } do
+      get 'show/:id', to: :show, as: :show
+      delete 'destory/:id', to: :destroy, as: :destroy
+    end
+  end
+
   resources :broadcasts, except: [:edit, :update]
 
   # A singleton resource and so no paths requiring ids are generated
