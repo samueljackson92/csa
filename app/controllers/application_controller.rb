@@ -10,8 +10,9 @@ class ApplicationController < ActionController::Base
 
   before_action :set_locale
   after_action :store_location, only: [:index, :new, :show, :edit, :search]
+  doorkeeper_for :all, :if => lambda { request.format.json? }
   before_action :login_required
-
+  
   protected
 
   def login_required
@@ -68,7 +69,7 @@ class ApplicationController < ActionController::Base
   # Accesses the current user from either the session or via a db lookup as
   # part of basic authentication.
   def current_user
-    login_from_session || login_from_basic_auth
+    login_from_session || authenticate_with_http_basic
   end
 
   # Store the given user id in the session. We cheat a bit and do this even

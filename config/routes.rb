@@ -1,5 +1,7 @@
 Csa::Application.routes.draw do
 
+  use_doorkeeper
+  
   resources :users do
     get 'search', on: :collection
     get 'verify', on: :collection
@@ -8,6 +10,7 @@ Csa::Application.routes.draw do
   #aliases for various routes. These are helpful for the RESTful API
   namespace :users do
     scope :format => true, :constraints => { :format => 'json' } do
+      get 'create', to: :create, as: :create
       get 'show/:id', to: :show, as: :show
       delete 'destory/:id', to: :destroy, as: :destroy
       put 'update/:id', to: :update, as: :update
@@ -16,8 +19,9 @@ Csa::Application.routes.draw do
 
   namespace :broadcasts do
     scope :format => true, :constraints => { :format => 'json' } do
+      post 'create', to: :create, as: :create
       get 'show/:id', to: :show, as: :show
-      delete 'destory/:id', to: :destroy, as: :destroy
+      delete 'destroy/:id', to: :destroy, as: :destroy
     end
   end
 

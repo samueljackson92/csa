@@ -42,6 +42,8 @@ GEM
     coffee-script-source (1.7.1)
     daemons (1.1.9)
     docile (1.1.5)
+    doorkeeper (1.4.0)
+      railties (>= 3.1)
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (2.2.1)
@@ -142,6 +144,7 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
+  doorkeeper
   jbuilder (~> 1.2)
   jquery-rails (~> 2.3.0)
   jquery-ui-rails (= 4.1.2)
