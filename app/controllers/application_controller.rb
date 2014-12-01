@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
 
   before_action :set_locale
   after_action :store_location, only: [:index, :new, :show, :edit, :search]
+  doorkeeper_for :all, :if => lambda { request.format.json? && !Rails.env.test? }
   before_action :login_required
 
   protected
@@ -51,10 +52,8 @@ class ApplicationController < ActionController::Base
         UserDetail.find(session[:user_id]) if session[:user_id]
   end
 
-  def login_from_basic_auth
-    authenticate_with_http_basic do |login, password|
-      self.current_user = UserDetail.authenticate(login, password)
-    end
+  def login_from_doorkeeper
+      self.current_user = UserDetail.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
   end
 
   def logged_in?
@@ -68,7 +67,7 @@ class ApplicationController < ActionController::Base
   # Accesses the current user from either the session or via a db lookup as
   # part of basic authentication.
   def current_user
-    login_from_session || login_from_basic_auth
+    login_from_session || login_from_doorkeeper
   end
 
   # Store the given user id in the session. We cheat a bit and do this even
