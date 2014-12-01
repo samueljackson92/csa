@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
 
   before_action :set_locale
   after_action :store_location, only: [:index, :new, :show, :edit, :search]
-  doorkeeper_for :all, :if => lambda { request.format.json? }
+  doorkeeper_for :all, :if => lambda { request.format.json? && !Rails.env.test? }
   before_action :login_required
 
   protected
