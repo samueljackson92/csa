@@ -30,8 +30,8 @@ gem 'coffee-rails', '~> 4.0.0'
 
 gem 'oauth', '~>0.4.6'
 
-# Used Doorkeeper for oauth2 support
-gem 'doorkeeper'
+# Use Doorkeeper for oauth2 support
+gem 'doorkeeper', '1.4.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
