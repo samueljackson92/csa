@@ -1,4 +1,8 @@
 Doorkeeper.configure do
+
+  #supply a refresh token with the request
+  use_refresh_token
+
   # Change the ORM that doorkeeper will use.
   # Currently supported options are :active_record, :mongoid2, :mongoid3, :mongo_mapper
   orm :active_record
@@ -10,6 +14,8 @@ Doorkeeper.configure do
   #   # Example implementation:
   #   User.find_by_id(session[:user_id]) || redirect_to(new_user_session_path)
   # end
+
+  access_token_expires_in 1.hours
 
   resource_owner_from_credentials do |routes|
     UserDetail.authenticate(params[:username], params[:password])

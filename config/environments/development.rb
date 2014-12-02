@@ -53,8 +53,7 @@ Csa::Application.configure do
   config.assets.debug = true
   Paperclip.options[:command_path] = '/usr/local/bin/'
 
-  #config.use_ssl = true
-  config.use_ssl = false
+  config.use_ssl = true
   config.ssl_port = 3001
   NON_SSL_PORT = 3000
 end
