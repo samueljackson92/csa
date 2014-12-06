@@ -27,6 +27,31 @@ class BroadcastsController < ApplicationController
     @broadcast = Broadcast.new
   end
 
+
+  def search
+    # Use will_paginate's :conditions and :joins to search across both the
+    # users and user_details tables. search_fields private method will add a field
+    # for each checkbox field checked by the user, or returns nil
+    # if none were checked. The search_conditions method is defined
+    # in lib/searchable.rb and either searches across all columns identified in
+    # User.searchable_by or uses the search_fields to constrain the search
+
+    respond_to do |format|
+      format.html {
+        @broadcasts = Broadcast.where(Broadcast.search_conditions(params[:q], search_fields(Broadcast)))
+        .paginate(page: params[:page],
+        per_page: params[:per_page])
+        .order('created_at')
+        render 'index'
+      }
+      # Deal with incoming Ajax request for JSON data for autocomplete search field
+      format.json {
+        @broadcasts = Broadcast.where(Broadcast.search_conditions(params[:q], search_fields(Broadcast))).order('created_at')
+        render json: @broadcasts
+      }
+    end
+  end
+
   # POST /broadcasts
   # POST /broadcasts.json
   def create
@@ -88,6 +113,18 @@ class BroadcastsController < ApplicationController
   end
 
   private
+
+  def search_fields(table)
+    fields = []
+    table.search_columns.each do |column|
+      # The parameters have had the table name stripped off so we
+      # have to to the same to each search_columns column
+      fields << column if params[column.sub(/^.*\./, "")]
+    end
+    fields = nil unless fields.length > 0
+    fields
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_broadcast
     @broadcast = Broadcast.find(params[:id])
