@@ -72,4 +72,19 @@ class BroadcastsControllerTest < ActionController::TestCase
     assert_redirected_to broadcasts_path
   end
 
+  test "should search for broadcast" do
+    get :search, q: 'wibble'
+    assert_response :success
+    assert_template :index
+  end
+
+  test "should search for broadcast using json" do
+    get :search, format: 'json', q: 'wibble'
+    assert_response :success
+
+    users = JSON.parse(@response.body)
+    assert_equal 1, users.length
+    assert_equal 980190962, users[0]["user_id"]
+  end
+
 end
