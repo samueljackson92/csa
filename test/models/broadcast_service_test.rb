@@ -5,7 +5,7 @@ class BroadcastTest < ActiveSupport::TestCase
   fixtures :broadcasts
 
   setup do
-    @broadcast_message = "#CraigBakes all the cucumbers at "
+    @broadcast_message = "IT'S PEANUT BUTTER JELLY TIME, PEANUT BUTTER JELLY TIME... "
   end
 
   teardown do

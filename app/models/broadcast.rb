@@ -10,7 +10,7 @@ class Broadcast < ActiveRecord::Base
   has_and_belongs_to_many :feeds
 
   def to_s
-    result = "id: " + id.to_s + " content: " + content + " created_at: " + created_at
+    result = "id: " + id.to_s + " content: " + content
     if user
       result += " user: " + user.id.to_s
     end
