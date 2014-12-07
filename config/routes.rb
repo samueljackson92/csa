@@ -16,7 +16,7 @@ Csa::Application.routes.draw do
     scope :format => true, :constraints => { :format => 'json' } do
       post 'create', to: :create, as: :create
       get 'show/:id', to: :show, as: :show
-      delete 'destory/:id', to: :destroy, as: :destroy
+      delete 'destroy/:id', to: :destroy, as: :destroy
       put 'update/:id', to: :update, as: :update
     end
   end
